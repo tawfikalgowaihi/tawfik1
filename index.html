@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA WORKFLOWS | أتمتة إنتاج الأفلام والمحتوى بالذكاء الاصطناعي</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: rgba(23, 31, 50, 0.85);
+      --accent-color: #6366f1;
+      --accent-hover: #4f46e5;
+      --green-color: #10b981;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .glow-bg {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 600px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(11,15,25,0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    /* Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      color: var(--accent-color);
+    }
+
+    .nav-btn {
+      background-color: #25d366;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background-color: #1eb857;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 40px 10px 30px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: 2.1rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 25px;
+      padding: 0 5px;
+    }
+
+    /* Tools Grid Section */
+    .tools-section {
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .tools-header {
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    .tools-header h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tools-header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 0 auto;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 20px;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      text-align: right;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      border-color: #6366f1;
+    }
+
+    .badge-50 {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: linear-gradient(90deg, #ef4444, #f97316);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .logo-box {
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .logo-box img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .tool-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .tool-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .free-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--green-color);
+      font-weight: bold;
+      font-size: 0.82rem;
+      margin-bottom: 15px;
+      background: rgba(16, 185, 129, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      width: 100%;
+    }
+
+    .join-btn {
+      width: 100%;
+      background: linear-gradient(90deg, #6366f1, #4f46e5);
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .join-btn:hover {
+      opacity: 0.9;
+    }
+        /* Pricing Section */
+    .pricing-section {
+      padding: 40px 0 20px;
+    }
+
+    .pricing-card {
+      background: linear-gradient(145deg, rgba(23, 31, 50, 0.95), rgba(15, 23, 42, 0.98));
+      border: 2px solid var(--accent-color);
+      border-radius: 20px;
+      padding: 30px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .discount-badge-main {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #ef4444, #f97316);
+      color: #fff;
+      padding: 5px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .price-box {
+      margin: 20px 0;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-left: 8px;
+    }
+
+    .current-price {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--green-color);
+    }
+
+    .features-list {
+      list-style: none;
+      text-align: right;
+      margin: 25px 0;
+      padding: 0;
+    }
+
+    .features-list li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .features-list i {
+      color: var(--green-color);
+      font-size: 1.1rem;
+    }
+
+    .cta-button {
+      display: block;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+      margin-bottom: 12px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .whatsapp-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background-color: #25d366;
+      color: #fff;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0 15px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 30px;
+    }
+
+    /* Media Queries for Large Screens */
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 2.6rem; }
+      .container { padding: 20px; }
+      .pricing-card { padding: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-bg"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> AURA <span>WORKFLOWS</span>
+      </div>
+      <a href="https://wa.me/967784074871?text=مرحباً،%20أرغب%20في%20الاستفسار%20عن%20قالب%20أتمتة%20صناعة%20الأفلام" class="nav-btn" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> تواصل معنا
+      </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">⚡ نظام الإنتاج الآلي 100%</div>
+      <h1>اصنع أفلاماً وفيديوهات كاملة <br><span>بالذكاء الاصطناعي بنقرة زر</span></h1>
+      <p>احصل على منظومة أتمتة n8n الاحترافية لربط أفضل أدوات الذكاء الاصطناعي وإنشاء سيناريوهات، مشاهد بصريّة، وتعليق صوتي سينمائي تلقائياً.</p>
+    </section>
+
+    <!-- Tools Grid Section -->
+    <section class="tools-section">
+      <div class="tools-header">
+        <h2>منصات وأدوات المنظومة الرسمية</h2>
+        <p>سجل مجاناً في كل منصة للاستفادة من خصم 50% وتفعيل الأتمتة المباشرة</p>
+      </div>
+
+      <div class="tools-grid">
+
+        <!-- 1. ElevenLabs (رابط الأفلييت الخاص بك) -->
+        <div class="tool-card">
+          <span class="badge-50">خصم 50%</span>
+          <div class="logo-box">
+            <img src="https://api.iconify.design/simple-icons:elevenlabs.svg?color=%23ffffff" alt="ElevenLabs">
+          </div>
+          <h3 class="tool-name">ElevenLabs</h3>
+          <p class="tool-desc">محرك التعليق الصوتي السينمائي والدبلجة الآلية الأكثر واقعية.</p>
+          <div class="free-note"><i class="fa-solid fa-gift"></i> سجل أولاً مجاناً وحصرياً</div>
+          <a href="https://try.elevenlabs.io/zqkeecnvir0e" target="_blank" class="join-btn">
+            <span>انضم الآن واستفد من التخفيض</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <!-- 2. n8n Automation -->
+        <div class="tool-card">
+          <span class="badge-50">خصم 50%</span>
+          <div class="logo-box">
+            <img src="https://assets.stickpng.com/images/643b2f5d7cfbbcb58f440476.png" alt="n8n">
+          </div>
+          <h3 class="tool-name">n8n Automation</h3>
+          <p class="tool-desc">العقل المدبر لتوصيل وتنسيق سير العمل بين الأدوات لإنتاج الفيلم آلياً.</p>
+          <div class="free-note"><i class="fa-solid fa-gift"></i> تجربة مجانية سحابية 100%</div>
+          <a href="https://n8n.io" target="_blank" class="join-btn">
+            <span>انضم الآن واستفد من التخفيض</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <!-- 3. Anthropic Claude -->
+        <div class="tool-card">
+          <span class="badge-50">خصم 50%</span>
+          <div class="logo-box">
+            <img src="https://api.iconify.design/simple-icons:anthropic.svg?color=%23d97706" alt="Claude">
+          </div>
+          <h3 class="tool-name">Claude 3.5</h3>
+          <p class="tool-desc">النموذج الأذكى لكتابة السيناريوهات وتفصيل المشاهد السينمائية.</p>
+          <div class="free-note"><i class="fa-solid fa-gift"></i> حساب مجاني متاح فوراً</div>
+          <a href="https://claude.ai" target="_blank" class="join-btn">
+            <span>انضم الآن واستفد من التخفيض</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <!-- 4. Runway Gen-3 -->
+        <div class="tool-card">
+          <span class="badge-50">خصم 50%</span>
+          <div class="logo-box">
+            <img src="https://api.iconify.design/simple-icons:runway.svg?color=%23ffffff" alt="Runway">
+          </div>
+          <h3 class="tool-name">Runway Gen-3</h3>
+          <p class="tool-desc">مولد مقاطع الفيديو السينمائية وتحريك الصور بدقة عالية.</p>
+          <div class="free-note"><i class="fa-solid fa-gift"></i> رصيد تجريبي مجاني عند التسجيل</div>
+          <a href="https://runwayml.com" target="_blank" class="join-btn">
+            <span>انضم الآن واستفد من التخفيض</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <!-- 5. Midjourney -->
+        <div class="tool-card">
+          <span class="badge-50">خصم 50%</span>
+          <div class="logo-box">
+            <img src="https://api.iconify.design/simple-icons:midjourney.svg?color=%23ffffff" alt="Midjourney">
+          </div>
+          <h3 class="tool-name">Midjourney</h3>
+          <p class="tool-desc">أقوى منصة لتوليد الصور والمشاهد المرجعية بدقة مذهلة.</p>
+          <div class="free-note"><i class="fa-solid fa-gift"></i> سجل وابدأ الإنتاج فوراً</div>
+          <a href="https://midjourney.com" target="_blank" class="join-btn">
+            <span>انضم الآن واستفد من التخفيض</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+        <!-- 6. OpenAI API -->
+        <div class="tool-card">
+          <span class="badge-50">خصم 50%</span>
+          <div class="logo-box">
+            <img src="https://api.iconify.design/simple-icons:openai.svg?color=%2310a37f" alt="OpenAI">
+          </div>
+          <h3 class="tool-name">OpenAI ChatGPT</h3>
+          <p class="tool-desc">محرك المساعدة الإضافي لصياغة الأفكار وتنسيق بيانات الـ JSON.</p>
+          <div class="free-note"><i class="fa-solid fa-gift"></i> تسجيل مجاني سريع</div>
+          <a href="https://openai.com" target="_blank" class="join-btn">
+            <span>انضم الآن واستفد من التخفيض</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+      <div class="pricing-card">
+        <div class="discount-badge-main">خصم خاص لفترة محدودة 50%</div>
+        <h2 style="font-size: 1.5rem; margin-top: 10px;">حزمة AURA AI AUTOMATION</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">احصل على كود JSON الكامل + دليل التشغيل بالتفصيل</p>
+
+        <div class="price-box">
+          <span class="old-price">$299</span>
+          <span class="current-price">$149</span>
+        </div>
+
+        <ul class="features-list">
+          <li><i class="fa-solid fa-circle-check"></i> قالب n8n JSON جاهز للتركيب بضغطة واحدة.</li>
+          <li><i class="fa-solid fa-circle-check"></i> ربط متكامل بين Claude وElevenLabs وRunway.</li>
+          <li><i class="fa-solid fa-circle-check"></i> سكربت FFmpeg لدمج الصوت والصورة تلقائياً.</li>
+          <li><i class="fa-solid fa-circle-check"></i> شرح فيديو خطوة بخطوة للتشغيل المجاني.</li>
+          <li><i class="fa-solid fa-circle-check"></i> دعم فني مباشر عبر الواتساب للمساعدة في الإعداد.</li>
+        </ul>
+
+        <!-- زر الشراء (مكان الرابط فارغ) -->
+        <a href="" class="cta-button">شراء المنظومة الآن (ضع رابط الشراء هنا)</a>
+
+        <!-- زر الواتساب المباشر -->
+        <a href="https://wa.me/967784074871?text=مرحباً،%20أرغب%20في%20الاستفسار%20عن%20عرض%20AURA%20WORKFLOWS" class="whatsapp-btn" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i> للاستفسار والتواصل المباشر عبر واتساب
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2026 AURA WORKFLOWS. جميع الحقوق محفوظة.</p>
+    </footer>
+  </div>
+
+</body>
+</html>
